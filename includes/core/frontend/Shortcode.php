@@ -109,18 +109,18 @@ class Shortcode {
 
 			echo '<div id="ymc-smart-filter-container-'. esc_attr($c_target) .'" 
 				  class="ymc-smart-filter-container ymc-filter-'. esc_attr($id) .' ymc-loaded-filter ymc-'. esc_attr($ymc_filter_layout) .' ymc-'. esc_attr($ymc_post_layout) .' ymc-pagination-'. esc_attr($ymc_pagination_type) .' data-target-ymc'.esc_attr($id).'-'.esc_attr($c_target).' data-target-ymc'. esc_attr($c_target) .' '. $css_special .'" data-loading="true"
-				  data-params=\'{"cpt":"'.esc_attr($ymc_cpt_value).'","tax":"'.esc_attr($ymc_tax).'","terms":"'.esc_attr($ymc_terms).'","default_terms":"'.esc_attr($default_terms).'","exclude_posts":"'.esc_attr($ymc_exclude_posts).'","choices_posts":"'.esc_attr($ymc_choices_posts).'","posts_selected":"all","preloader_icon":"'.esc_attr($ymc_preloader_icon).'","type_pg":"'.esc_attr($ymc_pagination_type).'","per_page":"'.esc_attr($ymc_per_page).'","page":"1","page_scroll":"'.esc_attr($ymc_scroll_page).'","preloader_filters":"'.esc_attr($ymc_preloader_filters).'","preloader_filters_rate":"'.esc_attr($ymc_preloader_filters_rate).'","preloader_filters_custom":"'.esc_attr($ymc_preloader_filters_custom).'","post_animation":"'.esc_attr($ymc_post_animation).'","popup_animation":"'.esc_attr($ymc_popup_animation).'","letter":"","post_layout":"'.esc_attr($ymc_post_layout).'","filter_layout":"'.esc_attr($ymc_filter_layout).'","filter_id":"'.esc_attr($id).'","search":"","search_filtered_posts":"'.esc_attr($ymc_search_filtered_posts).'","sort_order":"","sort_orderby":"","meta_key":"","meta_query":"","date_query":"","data_target":"data-target-ymc'.esc_attr($c_target).'","target_id":"'.esc_attr($c_target).'"}\'>';
+				  data-params=\'{"cpt":"'.esc_attr($ymc_cpt_value).'","tax":"'.esc_attr($ymc_tax).'","terms":"'.esc_attr($ymc_terms).'","default_terms":"'.esc_attr($default_terms).'","exclude_posts":"'.esc_attr($ymc_exclude_posts).'","choices_posts":"'.esc_attr($ymc_choices_posts).'","posts_selected":"all","preloader_icon":"'.esc_attr($ymc_preloader_icon).'","type_pg":"'.esc_attr($ymc_pagination_type).'","per_page":"'.esc_attr($ymc_per_page).'","page":"1","page_scroll":"'.esc_attr($ymc_scroll_page).'","preloader_filters":"'.esc_attr($ymc_preloader_filters).'","preloader_filters_rate":"'.esc_attr($ymc_preloader_filters_rate).'","preloader_filters_custom":"'.esc_attr($ymc_preloader_filters_custom).'","post_animation":"'.esc_attr($ymc_post_animation).'","popup_animation":"'.esc_attr($ymc_popup_animation).'","letter":"","post_layout":"'.esc_attr($ymc_post_layout).'","filter_layout":"'.esc_attr($ymc_filter_layout).'","filter_id":"'.esc_attr($id).'","search":"","search_filtered_posts":"'.esc_attr($ymc_search_filtered_posts).'","sort_order":"","sort_orderby":"","meta_key":"","meta_query":"","date_query":"","data_target":"data-target-ymc'.esc_attr($c_target).'","target_id":"'.esc_attr($c_target).'"}\'>'; ?> 
 
-
-			if ( $ymc_filter_search_status === 'on' )
-			{
-				$filepath_search = YMC_SMART_FILTER_DIR . "/includes/core/frontend/layouts/search/search-layout.php";
-
-				if ( file_exists($filepath_search) ) {
-					require $filepath_search;
-				}
-			}
-
+			<div class="filter-wrapper">
+				<div class="latest-posts-wrapper">
+					<?php if ($ymc_post_layout == 'post-layout1'){ ?>
+					<p class="latest-posts">Latest Posts</p>
+					<?php } else { ?>
+					<p class="latest-posts">Latest Videos</p>
+					<?php } ?>
+				</div>
+				
+			<?php
 			if ( $ymc_filter_status === 'on' )
 			{
 				if ( $ymc_filter_layout )
@@ -143,6 +143,15 @@ class Shortcode {
 				}
 			}
 
+			if ( $ymc_filter_search_status === 'on' )
+			{
+				$filepath_search = YMC_SMART_FILTER_DIR . "/includes/core/frontend/layouts/search/search-layout.php";
+
+				if ( file_exists($filepath_search) ) {
+					require $filepath_search;
+				}
+			}
+
 			if ( $ymc_post_layout !== 'post-custom-layout')
 			{
 				$filepath_post_css = YMC_SMART_FILTER_DIR . '/includes/core/frontend/layouts/post-css/'. $ymc_post_layout .'-css.php';
@@ -151,7 +160,7 @@ class Shortcode {
 					require $filepath_post_css;
 				}
 			}
-
+			?> </div> <?php
 			if ( in_array($ymc_post_layout, $arr_layouts_posts) )
 			{
 				$breakpoints_classes = 'ymc-xs-col-'.esc_attr($ymc_mobile_xs).' ymc-sm-col-'.esc_attr($ymc_tablet_sm).' ymc-md-col-'.esc_attr($ymc_tablet_md).' ymc-lg-col-'.esc_attr($ymc_desktop_lg).' ymc-xl-col-'.esc_attr($ymc_desktop_xl).' ymc-xxl-col-'.esc_attr($ymc_desktop_xxl);
